@@ -1,0 +1,39 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src/dev"
+  "src/main"
+  "src/test"]
+
+ :dependencies
+ [[reagent "1.1.1"]
+  [com.github.mainej/headlessui-reagent "1.6.6.71"]
+  [to.fluent/heroicons-clojure "1.0.4"]
+  [binaryage/devtools "0.9.7"]
+  [com.teknql/shadow-cljs-tailwind-jit "1.0.0"]
+  [taipei.404/html-to-hiccup "0.1.8"]
+  [io.github.andrzejsliwa/tailwind-hiccup-tooling "0.1.2"]
+  [fipp "0.6.23"]
+  [metosin/reitit "0.5.11"]
+  [metosin/reitit-frontend "0.5.11"]]
+
+
+ :builds
+
+ {:ui
+  {:target :browser
+   :output-dir "public/js/compiled"
+   :asset-path "/js/compiled"
+   :modules {:main {:init-fn app.core/init}}
+
+   :dev
+   {:build-hooks [(teknql.tailwind/start-watch!)]}
+   :release
+   {:build-hooks [(teknql.tailwind/compile-release!)]}
+   :devtools
+   {:http-root   "public"
+    :http-port   3000
+    :preloads    [devtools.preload]}
+   :tailwind/files
+   {:base-path "."
+    :tailwind.css "./public/css/style.css"}
+   :tailwind/output "public/css/compiled/style.css"}}}
